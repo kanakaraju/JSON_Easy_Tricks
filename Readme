@@ -1,0 +1,7 @@
+A JSON (JavaScript Object Notation) object is a data structure that stores information in a text format using a collection of key-value pairs. JSON is commonly used for data interchange between a server and a web application, configuration files, and more, due to its simplicity and readability.
+Here's the basic structure of a JSON object:
+{
+  "key1": "value1",
+  "key2": "value2",
+  "key3": "value3"
+}
