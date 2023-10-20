@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <! --  Javascript, Jquery and html, css, bootstrap - Json View-->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <link rel="shortcut icon" href="C:/Users/KanakaRaju/Documents/Channel_Images/favicon.png" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <! --  css changes -->
+        <style type="text/css">
+            .hide {
+                display: none;
+            }
+            .show {
+                display: block;
+            }
+            .stringView {
+              text-align: center;
+            }
+            input[type=text], select, textarea {
+              width: 100%;
+              padding: 12px;
+              border: 1px solid #ccc;
+              border-radius: 4px;
+              resize: vertical;
+            }
+            .col-md-12 {
+              background: lightgrey;
+              border-radius: 5px;
+              margin: 10px;
+            }
+            label {
+              padding: 12px 12px 12px 12px;
+              display: inline-block;
+            }
+
+            input[type=button] {
+              background-color: #55b156;
+              color: white;
+              padding: 12px 20px;
+              border: none;
+              border-radius: 4px;
+              cursor: pointer;
+              float: right;
+              margin: 7px 15px;
+            }
+
+            .container {
+              border-radius: 5px;
+              padding: 20px;
+            }
+            .row:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+
+            .header {
+                background: #18acb4;
+                color: #ffffff;
+                text-align: center;
+            }
+            .header img {
+                margin: 10px 0;
+            }
+            #valid_form {
+                color: red;
+                padding: 12px 0;
+            }
+            .note {
+                color: red;
+                font-weight: 700;
+            }
+            #data_download {
+                margin: 0px;
+            }
+            #updatedjson {
+                height: 200px;
+            }
+            .jsonView {
+                padding: 12px 0;
+            }
+        </style>
+        <title>JSON Object</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="col-md-12">
+          <form id="form1" method="post">
+            <label for="stringView">String to JSON Convert</span></label>
+          <div class="row">
+            <div class="col-md-3">
+              <label for="stringNames">Values*</label>
+              <! -- Please provide values as comma separated values. Eg: Name, Email -->
+            </div>
+            <div class="col-md-9">
+              <input type="text" id="name" name="name" placeholder="Please provide values as comma separated values. Eg: Name, Email" />
+            </div>
+          </div>
+          <div class="row">
+            <input type="button" id="Save" value="Show" />
+          </div>
+          </form>
+          </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <label for="JSONView" class="jsonView">JSON Object:</label>
+                    <pre id="updatedjson">    
+                    </pre>
+                    <input type="button" id="data_download" value="Download" />
+                </div>
+            </div>
+        </div>   
+    </body>
+</html>
+<script>
+    // Script code Javascript, Jquery or any script level code we can use as below logic
+    $(document).ready(function () { 
+          $("#Save").click(function () {  
+            var person = new Object();  
+            person.name = $('#name').val();  // input tag values
+            var str = person.name;
+            //using some special character
+            var parts = str.split(','); // we can use comma or any special character separated
+            var new_arr_json = [];
+            //for loop object creation
+             for (var i=0;i<parts.length;i++){
+                    var str_1 = $.trim(parts[i]).replace('\n', '').replace(/"/g, '');
+                    var new_arr = {
+                        "stringName":str_1
+                    }
+                    new_arr_json.push(JSON.stringify(new_arr, undefined, '\t'));
+              }
+              var new_json = '['+new_arr_json+']';
+              //Json view
+              document.getElementById("updatedjson").textContent = new_json;
+              
+            });  
+            // download json file
+            $("#data_download").click(function() {
+              var person = new Object();  
+              person.name = $('#name').val();  // input tag values
+              var str = person.name;
+              //using some special character
+              var parts = str.split(','); // we can use comma or any special character separated
+              var new_arr_json = [];
+              //for loop object creation
+              for (var i=0;i<parts.length;i++){
+                      var str_1 = $.trim(parts[i]).replace('\n', '').replace(/"/g, '');
+                      var new_arr = {
+                          "stringName":str_1
+                      }
+                      new_arr_json.push(JSON.stringify(new_arr, undefined, '\t'));
+                }
+                var new_json = '['+new_arr_json+']';
+                $("<a />", {
+                "download": "jsonObjectNew.json",
+                "href" : "data:application/json," + encodeURIComponent('['+new_json+']')
+              }).appendTo("body")
+              .click(function() {
+                 $(this).remove()
+              })[0].click()
+            });
+        });
+</script>
