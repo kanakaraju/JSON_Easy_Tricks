@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <link rel="shortcut icon" href="C:/Users/KanakaRaju/Documents/Channel_Images/favicon.png" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <title>XMLSerializer</title>
+    </head>
+    <body>
+    </body>
+</html>
+<script>
+
+var node = document.createElement("Devicea"); // do not use the methods provided by the document namespace 
+node.setAttribute('ID', 1000);
+node.setAttribute('DESCRIPTION', 'NameA');
+document.body.appendChild(node); // add the element
+
+if(document.getElementById("1000").textContent == '') {
+var node1 = document.createElement("Deviceb"); // do not use the methods provided by the document namespace 
+node1.setAttribute('ID', 2000);
+node1.setAttribute('DESCRIPTION', 'Nameb');
+document.getElementsByTagName("devicea")[0].appendChild(node1); // add the element
+} else {
+  console.log("not updated");
+}
+
+var serializer = new XMLSerializer();
+var xmlString = serializer.serializeToString(node);
+
+console.log('xmlString :' + xmlString);
+
+</script>
